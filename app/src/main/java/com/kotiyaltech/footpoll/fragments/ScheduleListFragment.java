@@ -76,13 +76,19 @@ public class ScheduleListFragment extends Fragment {
                 TextView teamOne = pointsTeamItemLayout.findViewById(R.id.teamOneTxt);
                 TextView teamTwo = pointsTeamItemLayout.findViewById(R.id.teamTwoTxt);
                 TextView day = pointsTeamItemLayout.findViewById(R.id.dayTxt);
+                TextView timeTxt = pointsTeamItemLayout.findViewById(R.id.timeTxt);
+                View seperatorLine = pointsTeamItemLayout.findViewById(R.id.seperator_line);
 
 
                 teamOne.setText(pointItem.getTeamOne());
                 teamTwo.setText(pointItem.getTeamTwo());
                 day.setText(pointItem.getDay());
+                timeTxt.setText(pointItem.getTime());
 
                 pointsTeamItem.addView(pointsTeamItemLayout);
+
+                if(i == pointItemList.size() -1)
+                    seperatorLine.setVisibility(View.GONE);
 
             }
 
