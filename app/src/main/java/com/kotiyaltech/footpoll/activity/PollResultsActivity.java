@@ -80,9 +80,10 @@ public class PollResultsActivity extends AppCompatActivity {
         int teamAPercentage = (int)(total != 0 ? Math.round((double)(poll.getTeamAVotes() * 100) / total) : 0);
         int teamBPercentage = (int)(total != 0 ? Math.round((double)(poll.getTeamBVotes() * 100) / total) : 0);
 
-        mTeamOneVotePerTxt.setText(String.format("%s: %d %s", poll.getTeamA(), teamAPercentage, "%"));
-        mTeamTwoVotePerTxt.setText(String.format("%s: %d %s", poll.getTeamB(), teamBPercentage, "%"));
+        mTeamOneVotePerTxt.setText(String.format("%d %s", teamAPercentage, "%"));
+        mTeamTwoVotePerTxt.setText(String.format("%d %s", teamBPercentage, "%"));
 
+        mSeeVotedUserText.setText(String.valueOf(total));
         mSeeVotedUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
