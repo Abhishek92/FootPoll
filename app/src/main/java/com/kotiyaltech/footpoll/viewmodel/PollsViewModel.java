@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kotiyaltech.footpoll.database.Poll;
 import com.kotiyaltech.footpoll.database.Polls;
 import com.kotiyaltech.footpoll.database.Response;
 
@@ -18,6 +19,7 @@ import com.kotiyaltech.footpoll.database.Response;
 
 public class PollsViewModel extends ViewModel {
     private MutableLiveData<Polls> pollsMutableLiveData;
+    private MutableLiveData<Poll> pollByIdMutableLiveData;
     private MutableLiveData<Response> responseLiveData = new MutableLiveData<>();
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference("poll");
@@ -28,6 +30,36 @@ public class PollsViewModel extends ViewModel {
 
         }
         return pollsMutableLiveData;
+    }
+
+    public LiveData<Poll> getPollById(int id) {
+        if (pollByIdMutableLiveData == null) {
+            pollByIdMutableLiveData = new MutableLiveData<>();
+            loadPollById(id);
+
+        }
+        return pollByIdMutableLiveData;
+    }
+
+    private void loadPollById(int id) {
+        // Do an asynchronous operation to fetch users.
+        databaseReference.child("polls").orderByChild("id").equalTo(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getChildrenCount() > 0){
+                    for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                        Poll iplPolls = snapshot.getValue(Poll.class);
+                        pollByIdMutableLiveData.setValue(iplPolls);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println(databaseError.getMessage());
+            }
+        });
     }
 
     private void loadPolls() {

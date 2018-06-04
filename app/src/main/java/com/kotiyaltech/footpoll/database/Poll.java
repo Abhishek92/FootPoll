@@ -36,6 +36,9 @@ public class Poll implements Parcelable {
     @Expose
     private List<VotedUser> votedUsers = new ArrayList<>();
 
+    private String teamAFlagUrl;
+    private String teamBFlagUrl;
+
     public Integer getId() {
         return id;
     }
@@ -102,6 +105,22 @@ public class Poll implements Parcelable {
 
     public void setVotedUsers(List<VotedUser> votedUsers) {
         this.votedUsers = votedUsers;
+    }
+
+    public String getTeamAFlagUrl() {
+        return teamAFlagUrl;
+    }
+
+    public void setTeamAFlagUrl(String teamAFlagUrl) {
+        this.teamAFlagUrl = teamAFlagUrl;
+    }
+
+    public String getTeamBFlagUrl() {
+        return teamBFlagUrl;
+    }
+
+    public void setTeamBFlagUrl(String teamBFlagUrl) {
+        this.teamBFlagUrl = teamBFlagUrl;
     }
 
     public Poll(){

@@ -12,14 +12,14 @@
         android:layout_height="wrap_content"
         android:text="Russia"
         android:layout_alignParentLeft="true"
-        android:textColor="@android:color/black"/>
+        style="@style/textViewStyle"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="VS"
         android:layout_centerHorizontal="true"
-        android:textColor="@android:color/black"/>
+        style="@style/textViewStyle"/>
 
     <TextView
         android:id="@+id/teamTwoTxt"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:text="India"
-        android:textColor="@android:color/black"/>
+        style="@style/textViewStyle"/>
 
 
 
@@ -45,15 +45,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-
-            android:textColor="@android:color/black"/>
+            style="@style/textViewStyle"/>
 
         <TextView
             android:id="@+id/timeTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:textColor="@android:color/black"/>
+            style="@style/textViewStyle"/>
     </LinearLayout>
 
     <View

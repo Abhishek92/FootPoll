@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.kotiyaltech.footpoll.R;
+import com.kotiyaltech.footpoll.fragments.HomeFragment;
 import com.kotiyaltech.footpoll.fragments.PointsTableFragment;
 import com.kotiyaltech.footpoll.fragments.ScheduleFragment;
 
@@ -20,7 +21,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private PointsTableFragment mPointsTableFragment = PointsTableFragment.newInstance();
     private ScheduleFragment mScheduleFragment = ScheduleFragment.newInstance();
-
+    private HomeFragment mHomeFragment = HomeFragment.getInstance();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -28,7 +29,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    //openHomeFragment();
+                    openHomeFragment();
 
                     return true;
                 case R.id.navigation_dashboard:
@@ -62,6 +63,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        openHomeFragment();
     }
 
     @Override
@@ -119,5 +122,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void openHomeFragment(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                mHomeFragment, HomeFragment.TAG).commit();
     }
 }

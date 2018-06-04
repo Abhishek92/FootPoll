@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="1"
-        android:textColor="@android:color/black"/>
+        style="@style/textViewStyle"
+        />
 
     <TextView
         android:id="@+id/teamNameTxt"
@@ -18,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:text="Russia"
-        android:textColor="@android:color/black"/>
+        style="@style/textViewStyle"/>
 
     <TextView
         android:id="@+id/mpTxt"
@@ -26,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="0"
-        android:textColor="@android:color/black"/>
+        style="@style/textViewStyle"/>
 
     <TextView
         android:id="@+id/winTxt"
@@ -34,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="0"
-        android:textColor="@android:color/black"/>
+        style="@style/textViewStyle"/>
 
     <TextView
         android:id="@+id/lossTxt"
@@ -42,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="0"
-        android:textColor="@android:color/black"/>
+        style="@style/textViewStyle"/>
 
     <TextView
         android:id="@+id/ptsTxt"
@@ -50,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="0"
-        android:textColor="@android:color/black"/>
+        style="@style/textViewStyle"/>
 
 
 </LinearLayout>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context="com.kotiyaltech.footpoll.activity.PollResultsActivity">
+
+    <TextView
+        android:id="@+id/pollsQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Who will win today's game"
+        style="@style/textViewStyle"
+        android:textSize="22sp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/teamsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/pollsQuestion">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/teamOne"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#d3d3d3"
+            android:src="@drawable/ic_launcher_background"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teamOneTxt"
+            android:text="Russia"
+            android:textSize="16sp"
+            style="@style/textViewStyle"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/teamOne"/>
+
+        <TextView
+            android:id="@+id/teamOnePercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teamOneTxt"
+            android:text="53%"
+            style="@style/textViewStyle"
+            android:textSize="20sp"
+            />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/teamTwo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#d3d3d3"
+            android:src="@drawable/ic_launcher_background"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teamTwoTxt"
+            android:layout_alignParentRight="true"
+            android:text="Saudi Arabia"
+            style="@style/textViewStyle"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:layout_below="@+id/teamTwo"/>
+
+        <TextView
+            android:id="@+id/teamTwoPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teamTwoTxt"
+            android:textSize="20sp"
+            android:text="47%"
+            style="@style/textViewStyle"
+            android:layout_alignParentRight="true"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/teamOne"
+            android:layout_alignBottom="@+id/teamTwoPercentage"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:background="#d3d3d3"
+            android:layout_marginBottom="10dp"/>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/seperator_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_below="@+id/teamsContainer"
+        android:layout_marginTop="16dp"
+        android:alpha="0.23"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seperator_line"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/teamOneTotalVoteTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textViewStyle"
+            android:textSize="16sp"
+            android:text="Total votes for russia"/>
+
+        <TextView
+            android:id="@+id/teamOneTotalVote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="156"
+            android:textSize="14sp"
+            style="@style/textViewStyle"
+            android:layout_alignParentRight="true"/>
+        <View
+            android:id="@+id/div_one"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:layout_below="@+id/teamOneTotalVote"
+            android:layout_marginTop="16dp"
+            android:alpha="0.23"/>
+
+        <TextView
+            android:id="@+id/teamTwoTotalVoteTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/textViewStyle"
+            android:textSize="16sp"
+            android:text="Total votes for russia"
+            android:layout_below="@+id/div_one"/>
+
+        <TextView
+            android:id="@+id/teamTwoTotalVote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="156"
+            android:layout_marginTop="10dp"
+            style="@style/textViewStyle"
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/div_one"/>
+
+        <View
+            android:id="@+id/div_two"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:layout_below="@+id/teamTwoTotalVote"
+            android:layout_marginTop="16dp"
+            android:alpha="0.23"/>
+
+        <TextView
+            android:id="@+id/seeAllVotedUserTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            style="@style/textViewStyle"
+            android:textSize="16sp"
+            android:layout_centerInParent="true"
+            android:text="See all voted users"
+            android:layout_below="@+id/div_two"/>
+
+        <View
+            android:id="@+id/div_three"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:layout_below="@+id/seeAllVotedUserTxt"
+            android:layout_marginTop="16dp"
+            android:alpha="0.23"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
