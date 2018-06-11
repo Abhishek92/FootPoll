@@ -4,6 +4,7 @@ package com.kotiyaltech.footpoll.fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,11 +23,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.activity.PollResultsActivity;
+import com.kotiyaltech.footpoll.config.FirebaseConfig;
 import com.kotiyaltech.footpoll.database.Poll;
 import com.kotiyaltech.footpoll.database.Polls;
 import com.kotiyaltech.footpoll.database.Response;
@@ -97,18 +102,13 @@ public class HomeFragment extends Fragment {
                 TextView mPollQuestion = pollsLayout.findViewById(R.id.pollsQuestion);
                 ImageView teamAFlagImg = pollsLayout.findViewById(R.id.teamOneImg);
                 ImageView teamBFlagImg = pollsLayout.findViewById(R.id.teamTwoImg);
-                TextView mTeamAPercentage = pollsLayout.findViewById(R.id.teamAWinPercentage);
-                TextView mTeamBPercentage = pollsLayout.findViewById(R.id.teamBWinPercentage);
                 TextView alreadyVotedText = pollsLayout.findViewById(R.id.alreadyVotedTxt);
-                TextView userListText = pollsLayout.findViewById(R.id.userList);
-                RadioButton mTeamARadioBtn = pollsLayout.findViewById(R.id.teamARb);
-                RadioButton mTeamBRadioBtn = pollsLayout.findViewById(R.id.teamBRb);
                 TextView teamAName = pollsLayout.findViewById(R.id.teamOneName);
                 TextView teamBName = pollsLayout.findViewById(R.id.teamTwoName);
                 Button mVoteBtn = pollsLayout.findViewById(R.id.voteBtn);
                 RadioGroup pollRadioGroup = pollsLayout.findViewById(R.id.pollRg);
                 TextView pollResults = pollsLayout.findViewById(R.id.pollResults);
-               // ShareButton deviceShareButton = pollsLayout.findViewById(R.id.fbShare);
+                ShareButton deviceShareButton = pollsLayout.findViewById(R.id.fbShare);
 
                 Glide.with(this).load(poll.getTeamAFlagUrl()).into(teamAFlagImg);
                 Glide.with(this).load(poll.getTeamBFlagUrl()).into(teamBFlagImg);
@@ -124,29 +124,25 @@ public class HomeFragment extends Fragment {
                 mVoteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        LinearLayout linearLayout = (LinearLayout) view.getParent().getParent();
+                        CardView linearLayout = (CardView) view.getParent().getParent().getParent().getParent();
                         setVotingData(linearLayout);
                     }
                 });
 
-                userListText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                       /* Intent intent = new Intent(getActivity(), VotedUserListActivity.class);
-                        intent.putExtra(VotedUserListActivity.KEY_VOTES_USER_LIST, poll);
-                        startActivity(intent);*/
-                    }
-                });
+
 
                 boolean isAlreadyVoted = checkIfUserAlreadyVoted(poll.getVotedUsers());
-               // deviceShareButton.setVisibility(!isAlreadyVoted ? View.GONE : View.VISIBLE);
+                deviceShareButton.setVisibility(!isAlreadyVoted ? View.GONE : View.VISIBLE);
+                enableDisableRadioButton(isAlreadyVoted, pollRadioGroup);
+                mVoteBtn.setVisibility(!isAlreadyVoted ? View.VISIBLE : View.GONE);
+                deviceShareButton.setVisibility(!isAlreadyVoted ? View.GONE : View.VISIBLE);
                 enableDisableRadioButton(isAlreadyVoted, pollRadioGroup);
                 mVoteBtn.setVisibility(!isAlreadyVoted ? View.VISIBLE : View.GONE);
                 VotedUser votedUser = getCurrentVotedUser(poll.getVotedUsers());
 
                 if (votedUser != null) {
                     alreadyVotedText.setText(String.format("You've voted for %s", votedUser.getTeamVoted()));
-                   // createShareContent(deviceShareButton, votedUser.getTeamVoted());
+                    createShareContent(deviceShareButton, votedUser.getTeamVoted());
                 }
                 alreadyVotedText.setVisibility(isAlreadyVoted ? View.VISIBLE : View.GONE);
 
@@ -154,12 +150,6 @@ public class HomeFragment extends Fragment {
                 teamAName.setText(poll.getTeamA());
                 teamBName.setText(poll.getTeamB());
 
-                double total = poll.getTeamAVotes() + poll.getTeamBVotes();
-                int teamAPercentage = (int)(total != 0 ? Math.round((double)(poll.getTeamAVotes() * 100) / total) : 0);
-                int teamBPercentage = (int)(total != 0 ? Math.round((double)(poll.getTeamBVotes() * 100) / total) : 0);
-
-                mTeamAPercentage.setText(String.format("%s: %d %s", poll.getTeamA(), teamAPercentage, "%"));
-                mTeamBPercentage.setText(String.format("%s: %d %s", poll.getTeamB(), teamBPercentage, "%"));
 
                 pollsLayout.setTag(i);
                 mPollContainer.addView(pollsLayout);
@@ -168,9 +158,9 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void setVotingData(LinearLayout linearLayout) {
-        int position = (int) linearLayout.getTag();
-        RadioGroup mPollRadioGroup = linearLayout.findViewById(R.id.pollRg);
+    private void setVotingData(CardView cardView) {
+        int position = (int) cardView.getTag();
+        RadioGroup mPollRadioGroup = cardView.findViewById(R.id.pollRg);
         int selectedRadioButtonId = mPollRadioGroup.getCheckedRadioButtonId();
         if(selectedRadioButtonId == -1){
             Toast.makeText(getActivity(), "Choose your favourite team first", Toast.LENGTH_SHORT).show();
@@ -219,40 +209,40 @@ public class HomeFragment extends Fragment {
     }
 
     private void createShareContent(ShareButton deviceShareButton, String teamName){
-       /* ShareLinkContent content = new ShareLinkContent.Builder()
+        ShareLinkContent content = new ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse(FirebaseConfig.getInstance().getConfig().getString(FirebaseConfig.KEY.KEY_SHARE_LINK)))
                 .setQuote("I've voted for my favourite team "+teamName)
                 .build();
-        deviceShareButton.setShareContent(content);*/
+        deviceShareButton.setShareContent(content);
 
     }
 
     private boolean checkIfUserAlreadyVoted(List<VotedUser> votedUserList){
         VotedUser votedUser = new VotedUser();
-       // votedUser.setUId(mFirebaseUser.getUid());
+        votedUser.setUId(mFirebaseUser.getUid());
         return votedUserList.contains(votedUser);
     }
 
     private VotedUser getCurrentVotedUser(List<VotedUser> votedUserList){
-       /* VotedUser votedUser = new VotedUser();
+        VotedUser votedUser = new VotedUser();
         votedUser.setEmail(mFirebaseUser.getEmail());
         votedUser.setUId(mFirebaseUser.getUid());
         int index = votedUserList.indexOf(votedUser);
         if(index != -1)
             return votedUserList.get(index);
-        else*/ return null;
+        else return null;
     }
 
     private String getProfilePicUrl(){
         // find the Facebook profile and get the user's id
-        /*for(UserInfo profile : mFirebaseUser.getProviderData()) {
+        for(UserInfo profile : mFirebaseUser.getProviderData()) {
             // check if the provider id matches "facebook.com"
             if(FacebookAuthProvider.PROVIDER_ID.equals(profile.getProviderId())) {
                 Uri photoUri = profile.getPhotoUrl();
                 if(photoUri != null)
                     return photoUri.toString();
             }
-        }*/
+        }
         return "";
     }
 

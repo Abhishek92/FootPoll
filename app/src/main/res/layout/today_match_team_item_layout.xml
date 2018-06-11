@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/teamOneImg"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/teamOneTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Russia"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/teamOneImg"
+        android:layout_alignTop="@+id/teamOneImg"
+        android:layout_alignBottom="@+id/teamOneImg"
+        android:layout_marginLeft="8dp"
+        style="@style/textViewStyle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VS"
+        android:layout_alignTop="@+id/teamOneImg"
+        android:layout_alignBottom="@+id/teamOneImg"
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        style="@style/textViewStyle"/>
+
+    <TextView
+        android:id="@+id/teamTwoTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/teamTwoImg"
+        android:gravity="center_vertical"
+        android:layout_alignTop="@+id/teamOneImg"
+        android:layout_alignBottom="@+id/teamOneImg"
+        android:layout_marginRight="8dp"
+        android:text="India"
+        style="@style/textViewStyle"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/teamTwoImg"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/dayContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/teamOneImg"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/dayTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            style="@style/textViewStyle"/>
+
+        <TextView
+            android:id="@+id/timeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            style="@style/textViewStyle"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/seperator_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_below="@+id/dayContainer"
+        android:layout_marginTop="10dp"
+        android:alpha="0.23"/>
+
+
+
+</RelativeLayout>

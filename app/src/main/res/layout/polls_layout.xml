@@ -131,11 +131,39 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/voteBtn"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
                     android:text="You've already voted"
                     style="@style/textViewStyle"/>
 
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/pollResults"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="See poll result"
+                    android:drawablePadding="8dp"
+                    android:gravity="center|left"
+                    android:textSize="16sp"
+                    style="@style/textViewStyle"
+                    android:fontFamily="@font/opensansregular"
+                    android:drawableLeft="@drawable/ic_poll_black_24dp"/>
+
+                <com.facebook.share.widget.ShareButton
+                    android:id="@+id/fbShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    />
+            </RelativeLayout>
+
+
 
 
             <TextView
@@ -156,41 +184,9 @@
                 android:visibility="gone"
                 android:textSize="20sp"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:id="@+id/userList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/textViewStyle"
-                    android:text="See voted users"
-                    android:visibility="gone"
-                    android:textSize="20sp"/>
-
-                <!--   <com.facebook.share.widget.ShareButton
-                       android:id="@+id/fbShare"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:visibility="gone"
-                       android:layout_toRightOf="@+id/userList"
-                       android:layout_marginLeft="10dp"
-                       />-->
 
 
 
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/pollResults"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="See poll result"
-                android:drawablePadding="8dp"
-                android:fontFamily="@font/opensansregular"
-                android:drawableLeft="@drawable/ic_poll_black_24dp"/>
 
         </LinearLayout>
 

@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "800819334604",
-    "firebase_url": "https://footpoll-6e720.firebaseio.com",
-    "project_id": "footpoll-6e720",
-    "storage_bucket": "footpoll-6e720.appspot.com"
+    "project_number": "814798853617",
+    "firebase_url": "https://footpoll-ad868.firebaseio.com",
+    "project_id": "footpoll-ad868",
+    "storage_bucket": "footpoll-ad868.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:800819334604:android:e3a1125c4d8a90dd",
+        "mobilesdk_app_id": "1:814798853617:android:e3a1125c4d8a90dd",
         "android_client_info": {
           "package_name": "com.kotiyaltech.footpoll"
         }
       },
       "oauth_client": [
         {
-          "client_id": "800819334604-bbbm3gfui540rl3n88esr0dkl9l07vip.apps.googleusercontent.com",
+          "client_id": "814798853617-vb4vbuupt9h3v6a9v5tljogptt6ejo6b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.kotiyaltech.footpoll",
@@ -23,17 +23,17 @@
           }
         },
         {
-          "client_id": "800819334604-ilbo258sedi2rssf7qd70ne87ss9f0md.apps.googleusercontent.com",
+          "client_id": "814798853617-qfbka3aeqoneesb9v9mg8vgc0d70726h.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "800819334604-ilbo258sedi2rssf7qd70ne87ss9f0md.apps.googleusercontent.com",
+          "client_id": "814798853617-qfbka3aeqoneesb9v9mg8vgc0d70726h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC1RRgFh5Duq357Y5VGqGAT1jrdW7g0cKM"
+          "current_key": "AIzaSyD_Jo04TMKQ-Qb9vxCPLIEPwLt0quZ3LQE"
         }
       ],
       "services": {
@@ -44,7 +44,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "800819334604-ilbo258sedi2rssf7qd70ne87ss9f0md.apps.googleusercontent.com",
+              "client_id": "814798853617-qfbka3aeqoneesb9v9mg8vgc0d70726h.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
