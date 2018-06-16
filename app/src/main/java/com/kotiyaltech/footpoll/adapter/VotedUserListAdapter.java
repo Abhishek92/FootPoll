@@ -7,14 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.facebook.login.widget.ProfilePictureView;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.database.VotedUser;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by hp pc on 07-04-2018.
@@ -39,7 +37,7 @@ public class VotedUserListAdapter extends RecyclerView.Adapter<VotedUserListAdap
     @Override
     public void onBindViewHolder(VotedUserListAdapter.ViewHolder holder, int position) {
         VotedUser votedUser = mVotedUserList.get(position);
-        Glide.with(mContext).load(votedUser.getImageUrl()).into(holder.profile);
+        holder.profile.setProfileId(votedUser.getFacebookId());
         holder.name.setText(votedUser.getName());
         holder.votedTeam.setText("Voted for: "+votedUser.getTeamVoted());
     }
@@ -50,7 +48,7 @@ public class VotedUserListAdapter extends RecyclerView.Adapter<VotedUserListAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        CircleImageView profile;
+        ProfilePictureView profile;
         TextView name;
         TextView votedTeam;
         public ViewHolder(View view) {

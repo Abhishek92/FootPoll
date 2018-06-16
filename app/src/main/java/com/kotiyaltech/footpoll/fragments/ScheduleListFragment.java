@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.database.ScheduleItem;
-import com.kotiyaltech.footpoll.util.ValidationUtil;
+import com.kotiyaltech.footpoll.util.Util;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -91,7 +91,7 @@ public class ScheduleListFragment extends Fragment {
                 teamTwo.setText(pointItem.getTeamTwo());
                 day.setText(pointItem.getDay());
                 try {
-                    timeTxt.setText(ValidationUtil.getCurrentTime(utcFormat, localFormat, pointItem.getTime()));
+                    timeTxt.setText(Util.getCurrentTime(utcFormat, localFormat, pointItem.getTime()));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }

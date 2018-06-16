@@ -11,6 +11,18 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class VotedUser implements Parcelable {
+    @SuppressWarnings("unused")
+    public static final Creator<VotedUser> CREATOR = new Creator<VotedUser>() {
+        @Override
+        public VotedUser createFromParcel(Parcel in) {
+            return new VotedUser(in);
+        }
+
+        @Override
+        public VotedUser[] newArray(int size) {
+            return new VotedUser[size];
+        }
+    };
     @SerializedName("teamVoted")
     @Expose
     private String teamVoted;
@@ -20,6 +32,20 @@ public class VotedUser implements Parcelable {
     private String name;
     private String imageUrl;
     private String uId;
+    private String facebookId;
+
+    public VotedUser() {
+
+    }
+
+    protected VotedUser(Parcel in) {
+        teamVoted = in.readString();
+        email = in.readString();
+        name = in.readString();
+        imageUrl = in.readString();
+        uId = in.readString();
+        facebookId = in.readString();
+    }
 
     public String getTeamVoted() {
         return teamVoted;
@@ -61,6 +87,14 @@ public class VotedUser implements Parcelable {
         this.uId = uId;
     }
 
+    public String getFacebookId() {
+        return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,18 +111,6 @@ public class VotedUser implements Parcelable {
         return uId != null ? uId.hashCode() : 0;
     }
 
-    public VotedUser(){
-
-    }
-
-    protected VotedUser(Parcel in) {
-        teamVoted = in.readString();
-        email = in.readString();
-        name = in.readString();
-        imageUrl = in.readString();
-        uId = in.readString();
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -101,18 +123,6 @@ public class VotedUser implements Parcelable {
         dest.writeString(name);
         dest.writeString(imageUrl);
         dest.writeString(uId);
+        dest.writeString(facebookId);
     }
-
-    @SuppressWarnings("unused")
-    public static final Creator<VotedUser> CREATOR = new Creator<VotedUser>() {
-        @Override
-        public VotedUser createFromParcel(Parcel in) {
-            return new VotedUser(in);
-        }
-
-        @Override
-        public VotedUser[] newArray(int size) {
-            return new VotedUser[size];
-        }
-    };
 }

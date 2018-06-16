@@ -2,42 +2,42 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:background="@android:color/white">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.facebook.login.widget.ProfilePictureView
         android:id="@+id/userProfileImg"
         android:layout_width="80dp"
         android:layout_height="80dp" />
 
     <TextView
         android:id="@+id/name"
+        style="@style/textViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/textViewStyle"
-        android:text="Absfs"
-        android:textSize="16sp"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/userProfileImg"/>
+        android:layout_toRightOf="@+id/userProfileImg"
+        android:text="Absfs"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/votedTeam"
+        style="@style/textViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/textViewStyle"
         android:layout_below="@+id/name"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/userProfileImg"/>
 
     <View
         android:id="@+id/div_three"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"
         android:layout_below="@+id/userProfileImg"
         android:layout_marginTop="16dp"
+        android:alpha="0.23"
 
-        android:alpha="0.23"/>
+        android:background="@android:color/black" />
 
 </RelativeLayout>

@@ -16,16 +16,13 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
+import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.appinvite.AppInviteInvitation;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.kotiyaltech.footpoll.BuildConfig;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.SplashActivity;
@@ -33,6 +30,7 @@ import com.kotiyaltech.footpoll.config.FirebaseConfig;
 import com.kotiyaltech.footpoll.fragments.HomeFragment;
 import com.kotiyaltech.footpoll.fragments.PointsTableFragment;
 import com.kotiyaltech.footpoll.fragments.ScheduleFragment;
+import com.kotiyaltech.footpoll.util.Util;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int REQUEST_INVITE = 0;
@@ -79,10 +77,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        ImageView userImageView = headerView.findViewById(R.id.userImageView);
+        ProfilePictureView userImageView = headerView.findViewById(R.id.userImageView);
         TextView userName = headerView.findViewById(R.id.userName);
 
-        Glide.with(this).load(getProfilePicUrl()).into(userImageView);
+        userImageView.setProfileId(Util.getFacebookProfileId(mFirebaseUser));
         userName.setText(mFirebaseUser.getDisplayName());
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -151,19 +149,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void openHomeFragment(){
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 mHomeFragment, HomeFragment.TAG).commit();
-    }
-
-    private String getProfilePicUrl(){
-        // find the Facebook profile and get the user's id
-        for(UserInfo profile : mFirebaseUser.getProviderData()) {
-            // check if the provider id matches "facebook.com"
-            if(FacebookAuthProvider.PROVIDER_ID.equals(profile.getProviderId())) {
-                Uri photoUri = profile.getPhotoUrl();
-                if(photoUri != null)
-                    return photoUri.toString();
-            }
-        }
-        return "";
     }
 
     public void openAppPlayStore(){

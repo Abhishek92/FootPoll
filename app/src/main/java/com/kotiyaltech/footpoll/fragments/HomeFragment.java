@@ -36,7 +36,7 @@ import com.kotiyaltech.footpoll.database.Poll;
 import com.kotiyaltech.footpoll.database.Polls;
 import com.kotiyaltech.footpoll.database.Response;
 import com.kotiyaltech.footpoll.database.VotedUser;
-import com.kotiyaltech.footpoll.util.ValidationUtil;
+import com.kotiyaltech.footpoll.util.Util;
 import com.kotiyaltech.footpoll.viewmodel.PollsViewModel;
 
 import java.util.List;
@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
         mIplPolls = iplPolls;
         List<Poll> pollList = iplPolls.getPolls();
         mPollContainer.removeAllViews();
-        if(ValidationUtil.listNotNull(pollList)) {
+        if (Util.listNotNull(pollList)) {
             for (int i = 0; i < pollList.size(); i++) {
                 final Poll poll = pollList.get(i);
                 CardView pollsLayout = (CardView) LayoutInflater.from(getContext()).inflate(R.layout.polls_layout, null);
@@ -174,6 +174,7 @@ public class HomeFragment extends Fragment {
         votedUser.setName(mFirebaseUser.getDisplayName());
         votedUser.setImageUrl(getProfilePicUrl());
         votedUser.setUId(mFirebaseUser.getUid());
+        votedUser.setFacebookId(Util.getFacebookProfileId(mFirebaseUser));
         poll.addVotedUsers(votedUser);
         switch (selectedRadioButtonId){
             case R.id.teamARb:
