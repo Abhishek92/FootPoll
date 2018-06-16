@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -13,8 +14,6 @@ import com.kotiyaltech.footpoll.database.ResultItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by hp pc on 12-06-2018.
@@ -57,8 +56,8 @@ public class ResultListAdapter extends RecyclerView.Adapter<ResultListAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        CircleImageView teamOneImg;
-        CircleImageView teamTwoImg;
+        ImageView teamOneImg;
+        ImageView teamTwoImg;
         TextView teamOneName;
         TextView teamTwoName;
         TextView teamOneGoal;

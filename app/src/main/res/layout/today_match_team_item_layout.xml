@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    android:orientation="horizontal"
     android:padding="10dp">
 
 
@@ -9,47 +12,51 @@
         android:id="@+id/teamOneImg"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignParentLeft="true"/>
+        android:layout_alignParentLeft="true"
+        app:civ_border_color="@color/colorImgBorder"
+        app:civ_border_width="1dp" />
 
     <TextView
         android:id="@+id/teamOneTxt"
+        style="@style/textViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Russia"
-        android:gravity="center_vertical"
-        android:layout_toRightOf="@+id/teamOneImg"
-        android:layout_alignTop="@+id/teamOneImg"
         android:layout_alignBottom="@+id/teamOneImg"
+        android:layout_alignTop="@+id/teamOneImg"
         android:layout_marginLeft="8dp"
-        style="@style/textViewStyle"/>
+        android:layout_toRightOf="@+id/teamOneImg"
+        android:gravity="center_vertical"
+        android:text="Russia" />
 
     <TextView
+        style="@style/textViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VS"
-        android:layout_alignTop="@+id/teamOneImg"
         android:layout_alignBottom="@+id/teamOneImg"
-        android:gravity="center_vertical"
+        android:layout_alignTop="@+id/teamOneImg"
         android:layout_centerHorizontal="true"
-        style="@style/textViewStyle"/>
+        android:gravity="center_vertical"
+        android:text="VS" />
 
     <TextView
         android:id="@+id/teamTwoTxt"
+        style="@style/textViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/teamOneImg"
+        android:layout_alignTop="@+id/teamOneImg"
+        android:layout_marginRight="8dp"
         android:layout_toLeftOf="@+id/teamTwoImg"
         android:gravity="center_vertical"
-        android:layout_alignTop="@+id/teamOneImg"
-        android:layout_alignBottom="@+id/teamOneImg"
-        android:layout_marginRight="8dp"
-        android:text="India"
-        style="@style/textViewStyle"/>
+        android:text="India" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/teamTwoImg"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentRight="true"
+        app:civ_border_color="@color/colorImgBorder"
+        app:civ_border_width="1dp" />
 
 
 
@@ -57,34 +64,34 @@
         android:id="@+id/dayContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/teamOneImg"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/teamOneImg"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/dayTxt"
+            style="@style/textViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            style="@style/textViewStyle"/>
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:id="@+id/timeTxt"
+            style="@style/textViewStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            style="@style/textViewStyle"/>
+            android:layout_marginLeft="4dp" />
     </LinearLayout>
 
     <View
         android:id="@+id/seperator_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"
         android:layout_below="@+id/dayContainer"
         android:layout_marginTop="10dp"
-        android:alpha="0.23"/>
+        android:alpha="0.23"
+        android:background="@android:color/black" />
 
 
 

@@ -1,5 +1,6 @@
 package com.kotiyaltech.footpoll.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,29 +10,29 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.kotiyaltech.footpoll.BuildConfig;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.SplashActivity;
+import com.kotiyaltech.footpoll.config.FirebaseConfig;
 import com.kotiyaltech.footpoll.fragments.HomeFragment;
 import com.kotiyaltech.footpoll.fragments.PointsTableFragment;
-import com.kotiyaltech.footpoll.fragments.ResultsFragment;
 import com.kotiyaltech.footpoll.fragments.ScheduleFragment;
-import com.kotiyaltech.footpoll.fragments.TodayMatchesFragment;
-import com.kotiyaltech.footpoll.fragments.TopScorerFragment;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int REQUEST_INVITE = 0;
@@ -60,6 +61,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
     };
     private FirebaseUser mFirebaseUser;
+    private BottomNavigationView bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +86,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         userName.setText(mFirebaseUser.getDisplayName());
         navigationView.setNavigationItemSelectedListener(this);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bottomNavigation = findViewById(R.id.navigation);
+        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         openHomeFragment();
     }
@@ -109,14 +111,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_home) {
             openHomeFragment();
         } else if (id == R.id.nav_today_match) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    TodayMatchesFragment.newInstance(), TodayMatchesFragment.TAG).commit();
+            TodayMatchActivity.startActivity(this);
         } else if (id == R.id.nav_result) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    ResultsFragment.newInstance(), ResultsFragment.TAG).commit();
+            ResultActivity.startActivity(this);
         } else if (id == R.id.nav_top_scorer) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    TopScorerFragment.newInstance(), TopScorerFragment.TAG).commit();
+            TopScorerActivity.startActivity(this);
         } else if (id == R.id.nav_logout) {
             logout();
         } else if (id == R.id.nav_invite) {
@@ -131,7 +130,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void logout() {
-        FacebookSdk.sdkInitialize(getApplicationContext());
         LoginManager.getInstance().logOut();
         FirebaseAuth.getInstance().signOut();
 
@@ -174,6 +172,30 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
         } catch (android.content.ActivityNotFoundException anfe) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+    }
+
+    private void checkForUpdates() {
+        int currAppVersion = Integer.parseInt(FirebaseConfig.getInstance().getConfig().getString(FirebaseConfig.KEY.KEY_VERSION_CODE));
+        if (currAppVersion > BuildConfig.VERSION_CODE) {
+            String updateMessage = FirebaseConfig.getInstance().getConfig().getString(FirebaseConfig.KEY.KEY_UPDATE_MESSAGE);
+            updateMessage = TextUtils.isEmpty(updateMessage) ? "New exciting update available, update your app." : updateMessage;
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(updateMessage)
+                    .setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            openAppPlayStore();
+                        }
+                    })
+                    .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                            dialog.dismiss();
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create().show();
         }
     }
 

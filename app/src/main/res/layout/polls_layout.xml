@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="2dp"
-    app:cardUseCompatPadding="true"
-    app:cardElevation="2dp"
     android:layout_marginTop="10dp"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true"
     >
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/pollsQuestion"
+            style="@style/textViewStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Who will win today's game"
-            style="@style/textViewStyle"
             android:padding="10dp"
+            android:text="Who will win today's game"
             android:textSize="18sp"/>
 
         <View
             android:id="@+id/seperator_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/black"
             android:layout_below="@+id/dayContainer"
-            android:alpha="0.23"/>
+            android:alpha="0.23"
+            android:background="@android:color/black" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -47,49 +47,49 @@
                     android:id="@+id/teamOneImg"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    app:civ_border_width="1dp"
-                    app:civ_border_color="#d3d3d3"/>
+                    app:civ_border_color="@color/colorImgBorder"
+                    app:civ_border_width="1dp" />
 
                 <TextView
                     android:id="@+id/teamOneName"
+                    style="@style/textViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Russia"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dp"
-                    android:textSize="14sp"
-                    style="@style/textViewStyle"
-                    android:layout_toRightOf="@+id/teamOneImg"/>
+                    android:layout_toRightOf="@+id/teamOneImg"
+                    android:text="Russia"
+                    android:textSize="14sp" />
 
 
 
                 <TextView
                     android:id="@+id/teamTwoName"
+                    style="@style/textViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Saudi Arabia"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="8dp"
-                    android:textSize="14sp"
-                    style="@style/textViewStyle"
-                    android:layout_toLeftOf="@+id/teamTwoImg"/>
+                    android:layout_toLeftOf="@+id/teamTwoImg"
+                    android:text="Saudi Arabia"
+                    android:textSize="14sp" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/teamTwoImg"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_alignParentRight="true"
-                    app:civ_border_width="1dp"
-                    app:civ_border_color="#d3d3d3"/>
+                    app:civ_border_color="#d3d3d3"
+                    app:civ_border_width="1dp" />
 
             </RelativeLayout>
             <RadioGroup
                 android:id="@+id/pollRg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
+                android:orientation="horizontal"
 
                 >
                 <RadioButton
@@ -100,14 +100,14 @@
                     />
                 <android.support.v4.widget.Space
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
                 <RadioButton
                     android:id="@+id/teamBRb"
+                    style="@style/textViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/textViewStyle"
                     android:background="@android:color/white"
                     />
             </RadioGroup>
@@ -127,12 +127,12 @@
 
                 <TextView
                     android:id="@+id/alreadyVotedTxt"
+                    style="@style/textViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/voteBtn"
                     android:layout_centerVertical="true"
-                    android:text="You've already voted"
-                    style="@style/textViewStyle"/>
+                    android:layout_toRightOf="@+id/voteBtn"
+                    android:text="You've already voted" />
 
             </RelativeLayout>
 
@@ -143,23 +143,23 @@
 
                 <TextView
                     android:id="@+id/pollResults"
+                    style="@style/textViewStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="See poll result"
+                    android:drawableLeft="@drawable/ic_poll_black_24dp"
                     android:drawablePadding="8dp"
-                    android:gravity="center|left"
-                    android:textSize="16sp"
-                    style="@style/textViewStyle"
                     android:fontFamily="@font/opensansregular"
-                    android:drawableLeft="@drawable/ic_poll_black_24dp"/>
+                    android:gravity="center|left"
+                    android:text="See poll result"
+                    android:textSize="16sp" />
 
                 <com.facebook.share.widget.ShareButton
                     android:id="@+id/fbShare"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
+                    android:visibility="gone"
                     />
             </RelativeLayout>
 
@@ -168,21 +168,21 @@
 
             <TextView
                 android:id="@+id/teamAWinPercentage"
+                style="@style/textViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textSize="20sp"
-                android:visibility="gone"
-                style="@style/textViewStyle"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/teamBWinPercentage"
+                style="@style/textViewStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                style="@style/textViewStyle"
-                android:visibility="gone"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:visibility="gone" />
 
 
 

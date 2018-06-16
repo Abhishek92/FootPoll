@@ -14,7 +14,11 @@ import android.widget.TextView;
 
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.database.ScheduleItem;
+import com.kotiyaltech.footpoll.util.ValidationUtil;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -29,6 +33,7 @@ public class ScheduleListFragment extends Fragment {
     public static final String KEY_SCHEDULE_LIST = "KEY_SCHEDULE_LIST";
 
     private ArrayList<ScheduleItem> scheduleItems = new ArrayList<>();
+
     public ScheduleListFragment() {
         // Required empty public constructor
     }
@@ -61,6 +66,8 @@ public class ScheduleListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         LinearLayout scheduleContainer = view.findViewById(R.id.scheduleContainer);
+        DateFormat utcFormat = new SimpleDateFormat("HH:mm");
+        DateFormat localFormat = new SimpleDateFormat("HH:mm");
         scheduleContainer.removeAllViews();
         Map<String, List<ScheduleItem>> groupedPointListMap = getPointsTableAccordingToGroup(scheduleItems);
         for (Map.Entry<String, List<ScheduleItem>> entry : groupedPointListMap.entrySet()) {
@@ -83,7 +90,11 @@ public class ScheduleListFragment extends Fragment {
                 teamOne.setText(pointItem.getTeamOne());
                 teamTwo.setText(pointItem.getTeamTwo());
                 day.setText(pointItem.getDay());
-                timeTxt.setText(pointItem.getTime());
+                try {
+                    timeTxt.setText(ValidationUtil.getCurrentTime(utcFormat, localFormat, pointItem.getTime()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 pointsTeamItem.addView(pointsTeamItemLayout);
 
