@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,9 @@ public class PollResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_poll_results);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         mTeamOneImageView = findViewById(R.id.teamOne);
         mTeamTwoImageView = findViewById(R.id.teamTwo);
 
@@ -83,7 +87,7 @@ public class PollResultsActivity extends AppCompatActivity {
         mTeamOneVotePerTxt.setText(String.format("%d %s", teamAPercentage, "%"));
         mTeamTwoVotePerTxt.setText(String.format("%d %s", teamBPercentage, "%"));
 
-        mSeeVotedUserText.setText(String.valueOf(total));
+        mSeeVotedUserText.setText(String.valueOf((int) total));
         mSeeVotedUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,5 +97,13 @@ public class PollResultsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

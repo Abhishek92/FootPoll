@@ -1,42 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    >
+    android:background="@color/colorPrimary">
+
+
+    <ImageView
+        android:id="@+id/football_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_above="@+id/heading"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/if_footbal_994000" />
 
     <TextView
         android:id="@+id/heading"
+        style="@style/textViewStyleWhite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="FootPoll"
-        android:textSize="64sp"
-        style="@style/textViewStyleWhite"
-        android:layout_centerInParent="true"/>
+        android:textSize="64sp" />
 
     <TextView
         android:id="@+id/voteTeam"
+        style="@style/textViewStyleWhite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Vote for your favourite team"
-        android:textSize="20sp"
-        android:gravity="center"
         android:layout_below="@+id/heading"
+        android:layout_centerInParent="true"
         android:layout_marginTop="8dp"
-        style="@style/textViewStyleWhite"
-        android:layout_centerInParent="true"/>
+        android:gravity="center"
+        android:text="Vote for your favourite team"
+        android:textSize="20sp" />
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebook_login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
         android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:layout_margin="16dp"
-        android:layout_centerInParent="true"/>
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp" />
 
 </RelativeLayout>
 

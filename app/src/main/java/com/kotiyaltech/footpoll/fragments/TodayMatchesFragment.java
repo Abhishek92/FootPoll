@@ -19,8 +19,12 @@ import com.bumptech.glide.Glide;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.database.TodayMatch;
 import com.kotiyaltech.footpoll.database.TodayMatchItem;
+import com.kotiyaltech.footpoll.util.Util;
 import com.kotiyaltech.footpoll.viewmodel.ScheduleViewModel;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -69,6 +73,8 @@ public class TodayMatchesFragment extends Fragment {
 
     private void loadSchedule(List<TodayMatchItem> todayMatchList) {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        DateFormat utcFormat = new SimpleDateFormat("HH:mm");
+        DateFormat localFormat = new SimpleDateFormat("HH:mm");
         for (int i = 0; i < todayMatchList.size(); i++) {
             TodayMatchItem pointItem = todayMatchList.get(i);
             dateTv.setText(pointItem.getDate());
@@ -86,7 +92,11 @@ public class TodayMatchesFragment extends Fragment {
             teamOne.setText(pointItem.getTeamOne());
             teamTwo.setText(pointItem.getTeamTwo());
             day.setText(pointItem.getDay());
-            timeTxt.setText(pointItem.getTime());
+            try {
+                timeTxt.setText(Util.getCurrentTime(utcFormat, localFormat, pointItem.getTime()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             pointsTeamItem.addView(pointsTeamItemLayout);
 

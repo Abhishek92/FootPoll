@@ -20,6 +20,7 @@ import com.kotiyaltech.footpoll.database.PointItem;
 import com.kotiyaltech.footpoll.database.PointsTable;
 import com.kotiyaltech.footpoll.viewmodel.PointsTableViewModel;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +78,7 @@ public class PointsTableFragment extends Fragment {
             groupNameTv.setText("Group " + entry.getKey());
 
             List<PointItem> pointItemList = entry.getValue();
+            Collections.sort(pointItemList);
             for (int i = 0; i < pointItemList.size(); i++) {
                 PointItem pointItem = pointItemList.get(i);
                 LinearLayout pointsTeamItem = pointsTableLayout.findViewById(R.id.points_team_item_container);
@@ -87,6 +89,7 @@ public class PointsTableFragment extends Fragment {
                 TextView win = pointsTeamItemLayout.findViewById(R.id.winTxt);
                 TextView loss = pointsTeamItemLayout.findViewById(R.id.lossTxt);
                 TextView points = pointsTeamItemLayout.findViewById(R.id.ptsTxt);
+                TextView draw = pointsTeamItemLayout.findViewById(R.id.drawTxt);
 
                 sNo.setText(String.valueOf(i + 1));
                 teamName.setText(pointItem.getTeamName());
@@ -94,6 +97,7 @@ public class PointsTableFragment extends Fragment {
                 win.setText(String.valueOf(pointItem.getWin()));
                 loss.setText(String.valueOf(pointItem.getLoss()));
                 points.setText(String.valueOf(pointItem.getPoints()));
+                draw.setText(String.valueOf(pointItem.getDraw()));
                 pointsTeamItem.addView(pointsTeamItemLayout);
 
             }

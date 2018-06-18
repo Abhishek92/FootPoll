@@ -107,6 +107,8 @@ public class HomeFragment extends Fragment {
                 TextView teamBName = pollsLayout.findViewById(R.id.teamTwoName);
                 Button mVoteBtn = pollsLayout.findViewById(R.id.voteBtn);
                 RadioGroup pollRadioGroup = pollsLayout.findViewById(R.id.pollRg);
+                RadioButton mTeamARadioBtn = pollsLayout.findViewById(R.id.teamARb);
+                RadioButton mTeamBRadioBtn = pollsLayout.findViewById(R.id.teamBRb);
                 TextView pollResults = pollsLayout.findViewById(R.id.pollResults);
                 ShareButton deviceShareButton = pollsLayout.findViewById(R.id.fbShare);
 
@@ -130,7 +132,8 @@ public class HomeFragment extends Fragment {
                 });
 
 
-
+                mTeamARadioBtn.setTag(poll.getTeamA());
+                mTeamBRadioBtn.setTag(poll.getTeamB());
                 boolean isAlreadyVoted = checkIfUserAlreadyVoted(poll.getVotedUsers());
                 deviceShareButton.setVisibility(!isAlreadyVoted ? View.GONE : View.VISIBLE);
                 enableDisableRadioButton(isAlreadyVoted, pollRadioGroup);
@@ -169,7 +172,7 @@ public class HomeFragment extends Fragment {
         RadioButton selectedRadioButton = mPollRadioGroup.findViewById(selectedRadioButtonId);
         Poll poll = mIplPolls.getPolls().get(position);
         VotedUser votedUser = new VotedUser();
-        votedUser.setTeamVoted(selectedRadioButton.getText().toString());
+        votedUser.setTeamVoted(selectedRadioButton.getTag().toString());
         votedUser.setEmail(mFirebaseUser.getEmail());
         votedUser.setName(mFirebaseUser.getDisplayName());
         votedUser.setImageUrl(getProfilePicUrl());

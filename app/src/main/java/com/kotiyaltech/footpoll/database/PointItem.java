@@ -1,5 +1,7 @@
 package com.kotiyaltech.footpoll.database;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by hp pc on 26-05-2018.
  */
 
-public class PointItem {
+public class PointItem implements Comparable<PointItem> {
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -32,6 +34,9 @@ public class PointItem {
     @SerializedName("stage")
     @Expose
     private String stage;
+    @SerializedName("draw")
+    @Expose
+    private Integer draw;
 
     public Integer getId() {
         return id;
@@ -97,4 +102,21 @@ public class PointItem {
         this.stage = stage;
     }
 
+    public Integer getDraw() {
+        return draw;
+    }
+
+    public void setDraw(Integer draw) {
+        this.draw = draw;
+    }
+
+
+    @Override
+    public int compareTo(@NonNull PointItem pointItem) {
+        if (this.points > pointItem.getPoints())
+            return -1;
+        if (this.points < pointItem.getPoints())
+            return 1;
+        else return 0;
+    }
 }

@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -21,8 +22,13 @@ import android.widget.TextView;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.appinvite.AppInviteInvitation;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.appinvite.FirebaseAppInvite;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.kotiyaltech.footpoll.BuildConfig;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.SplashActivity;
@@ -34,6 +40,7 @@ import com.kotiyaltech.footpoll.util.Util;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final int REQUEST_INVITE = 0;
+    private static final String TAG = HomeActivity.class.getSimpleName();
     private PointsTableFragment mPointsTableFragment = PointsTableFragment.newInstance();
     private ScheduleFragment mScheduleFragment = ScheduleFragment.newInstance();
     private HomeFragment mHomeFragment = HomeFragment.getInstance();
@@ -58,14 +65,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             return false;
         }
     };
-    private FirebaseUser mFirebaseUser;
-    private BottomNavigationView bottomNavigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -84,10 +89,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         userName.setText(mFirebaseUser.getDisplayName());
         navigationView.setNavigationItemSelectedListener(this);
 
-        bottomNavigation = findViewById(R.id.navigation);
+        BottomNavigationView bottomNavigation = findViewById(R.id.navigation);
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         openHomeFragment();
+
+        checkForUpdates();
     }
 
     @Override
@@ -140,7 +147,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private void sendInvites(){
         Intent intent = new AppInviteInvitation.IntentBuilder("App invitation")
-                .setMessage("Foot poll app invitation")
+                .setMessage("Foot poll app invitation, vote for your favourite team")
                 .setCallToActionText("Install")
                 .build();
         startActivityForResult(intent, REQUEST_INVITE);
@@ -182,6 +189,59 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             // Create the AlertDialog object and return it
             builder.create().show();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
+
+        if (requestCode == REQUEST_INVITE) {
+            if (resultCode == RESULT_OK) {
+                // Get the invitation IDs of all sent messages
+                String[] ids = AppInviteInvitation.getInvitationIds(resultCode, data);
+                for (String id : ids) {
+                    Log.d(TAG, "onActivityResult: sent invitation " + id);
+                }
+            } else {
+                // Sending failed or it was canceled, show failure message to the user
+                // ...
+            }
+        }
+    }
+
+    private void openAppInvites() {
+        // Check for App Invite invitations and launch deep-link activity if possible.
+        // Requires that an Activity is registered in AndroidManifest.xml to handle
+        // deep-link URLs.
+        FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData data) {
+                        if (data == null) {
+                            Log.d(TAG, "getInvitation: no data");
+                            return;
+                        }
+
+                        // Get the deep link
+                        Uri deepLink = data.getLink();
+
+                        // Extract invite
+                        FirebaseAppInvite invite = FirebaseAppInvite.getInvitation(data);
+                        if (invite != null) {
+                            String invitationId = invite.getInvitationId();
+                        }
+
+                        // Handle the deep link
+                        // ...
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "getDynamicLink:onFailure", e);
+                    }
+                });
     }
 
 }

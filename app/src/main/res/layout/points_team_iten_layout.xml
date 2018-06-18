@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     android:padding="10dp">
 
     <TextView
         android:id="@+id/sNoTxt"
+        style="@style/textViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="1"
-        style="@style/textViewStyle"
         />
 
     <TextView
         android:id="@+id/teamNameTxt"
+        style="@style/textViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:text="Russia"
-        style="@style/textViewStyle"/>
+        android:layout_weight="4"
+        android:text="Russia" />
 
     <TextView
         android:id="@+id/mpTxt"
+        style="@style/textViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="0"
-        style="@style/textViewStyle"/>
+        android:text="0" />
 
     <TextView
         android:id="@+id/winTxt"
+        style="@style/textViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="0"
-        style="@style/textViewStyle"/>
+        android:text="0" />
 
     <TextView
         android:id="@+id/lossTxt"
+        style="@style/textViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="0"
-        style="@style/textViewStyle"/>
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/drawTxt"
+        style="@style/textViewStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="0" />
 
     <TextView
         android:id="@+id/ptsTxt"
+        style="@style/textViewStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="0"
-        style="@style/textViewStyle"/>
+        android:text="0" />
 
 
 </LinearLayout>

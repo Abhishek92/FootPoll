@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -41,6 +42,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         mAuth = FirebaseAuth.getInstance();
         mFacebookSignInButton = findViewById(R.id.facebook_login_btn);
+        ImageView football = findViewById(R.id.football_image);
+        //football.setAnimation(AnimationUtils.loadAnimation(this, R.anim.bounce_anim));
         activiteFirebaseRemoteConfig();
         if(mAuth.getCurrentUser() != null) {
             mFacebookSignInButton.setVisibility(View.GONE);
