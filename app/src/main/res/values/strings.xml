@@ -19,4 +19,5 @@
     <string name="label_results">Results</string>
     <string name="label_today_matches">Today\'s Matches</string>
     <string name="lable_top_scorer">Top Scorer</string>
+    <string name="dialog_txt">You\'ve voted for %s, Thanks for supporting your team</string>
 </resources>

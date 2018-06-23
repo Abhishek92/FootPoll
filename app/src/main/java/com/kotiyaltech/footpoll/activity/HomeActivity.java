@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
@@ -93,7 +94,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         openHomeFragment();
-
+        openAppInvites();
         checkForUpdates();
     }
 
@@ -146,11 +147,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void sendInvites(){
-        Intent intent = new AppInviteInvitation.IntentBuilder("App invitation")
-                .setMessage("Foot poll app invitation, vote for your favourite team")
-                .setCallToActionText("Install")
-                .build();
-        startActivityForResult(intent, REQUEST_INVITE);
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Download this awesome app FootPoll from play store." + "\n" +
+                "https://play.google.com/store/apps/details?id=com.kotiyaltech.footpoll&hl=en&gl=US");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 
     private void openHomeFragment(){
@@ -168,7 +170,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void checkForUpdates() {
-        int currAppVersion = Integer.parseInt(FirebaseConfig.getInstance().getConfig().getString(FirebaseConfig.KEY.KEY_VERSION_CODE));
+        String appVersionCode = FirebaseConfig.getInstance().getConfig().getString(FirebaseConfig.KEY.KEY_VERSION_CODE);
+        appVersionCode = TextUtils.isEmpty(appVersionCode) ? "0" : appVersionCode;
+        int currAppVersion = Integer.parseInt(appVersionCode);
         if (currAppVersion > BuildConfig.VERSION_CODE) {
             String updateMessage = FirebaseConfig.getInstance().getConfig().getString(FirebaseConfig.KEY.KEY_UPDATE_MESSAGE);
             updateMessage = TextUtils.isEmpty(updateMessage) ? "New exciting update available, update your app." : updateMessage;
@@ -206,6 +210,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             } else {
                 // Sending failed or it was canceled, show failure message to the user
                 // ...
+                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
             }
         }
     }

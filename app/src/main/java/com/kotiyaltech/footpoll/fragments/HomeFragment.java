@@ -3,7 +3,6 @@ package com.kotiyaltech.footpoll.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,6 +35,7 @@ import com.kotiyaltech.footpoll.database.Poll;
 import com.kotiyaltech.footpoll.database.Polls;
 import com.kotiyaltech.footpoll.database.Response;
 import com.kotiyaltech.footpoll.database.VotedUser;
+import com.kotiyaltech.footpoll.dialog.VoteDialog;
 import com.kotiyaltech.footpoll.util.Util;
 import com.kotiyaltech.footpoll.viewmodel.PollsViewModel;
 
@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment {
     private PollsViewModel pollsViewModel;
     private LinearLayout mPollContainer;
     private FirebaseUser mFirebaseUser;
+    private VoteDialog voteDialog;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -118,9 +119,7 @@ public class HomeFragment extends Fragment {
                 pollResults.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), PollResultsActivity.class);
-                        intent.putExtra(PollResultsActivity.KEY_POLL_ID, poll.getId());
-                        startActivity(intent);
+                        PollResultsActivity.startActivity(getContext(), poll.getId());
                     }
                 });
                 mVoteBtn.setOnClickListener(new View.OnClickListener() {
@@ -189,6 +188,7 @@ public class HomeFragment extends Fragment {
             default:
                 break;
         }
+        voteDialog = new VoteDialog(getContext(), votedUser.getTeamVoted(), poll.getId());
         saveIplPollsData();
     }
 
@@ -197,9 +197,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable Response response) {
                 if(null != response){
-                    if(response.isSuccess())
+                    if (response.isSuccess()) {
+                        voteDialog.show();
                         Toast.makeText(getContext(), "Vote submitted", Toast.LENGTH_SHORT).show();
-                    else Toast.makeText(getContext(), "Vote not submitted", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Vote not submitted", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

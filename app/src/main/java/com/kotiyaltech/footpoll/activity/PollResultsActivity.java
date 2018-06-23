@@ -2,6 +2,7 @@ package com.kotiyaltech.footpoll.activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,12 @@ public class PollResultsActivity extends AppCompatActivity {
     private TextView mTeamTwoTotalVoteDesc;
     private TextView mPollQuestion;
     private TextView mSeeVotedUserText;
+
+    public static void startActivity(Context context, int pollId) {
+        Intent intent = new Intent(context, PollResultsActivity.class);
+        intent.putExtra(PollResultsActivity.KEY_POLL_ID, pollId);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
