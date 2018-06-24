@@ -2,6 +2,7 @@ package com.kotiyaltech.footpoll;
 
 import android.app.Application;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Logger;
 
@@ -15,5 +16,6 @@ public class FootPollApp extends Application {
     public void onCreate() {
         super.onCreate();
         FirebaseDatabase.getInstance().setLogLevel(Logger.Level.DEBUG);
+        MobileAds.initialize(this, getString(R.string.admob_app_id));
     }
 }

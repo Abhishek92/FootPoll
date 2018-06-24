@@ -24,6 +24,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -155,6 +158,8 @@ public class HomeFragment extends Fragment {
 
                 pollsLayout.setTag(i);
                 mPollContainer.addView(pollsLayout);
+                if (i == pollList.size() - 1)
+                    loadAd(mPollContainer);
 
             }
         }
@@ -251,6 +256,15 @@ public class HomeFragment extends Fragment {
             }
         }
         return "";
+    }
+
+    private void loadAd(ViewGroup viewGroup) {
+        AdView adView = new AdView(getActivity());
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId(getActivity().getString(R.string.ad_unit_id));
+        viewGroup.addView(adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
     }
 
 

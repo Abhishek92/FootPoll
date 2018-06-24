@@ -15,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.database.PointItem;
 import com.kotiyaltech.footpoll.database.PointsTable;
@@ -54,6 +56,7 @@ public class PointsTableFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadAd(view);
         pointsTableContentLayout = view.findViewById(R.id.pointsTableContainer);
         final ProgressBar progressBar = view.findViewById(R.id.progressBar);
         final PointsTableViewModel pointsTableViewModel = ViewModelProviders.of(this).get(PointsTableViewModel.class);
@@ -104,5 +107,11 @@ public class PointsTableFragment extends Fragment {
 
             pointsTableContentLayout.addView(pointsTableLayout);
         }
+    }
+
+    private void loadAd(@NonNull View view) {
+        AdView mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }

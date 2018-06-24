@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.database.TodayMatch;
 import com.kotiyaltech.footpoll.database.TodayMatchItem;
@@ -58,6 +60,7 @@ public class TodayMatchesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         pointsTeamItem = view.findViewById(R.id.schedule_team_item_container);
+        loadAd(view);
         dateTv = view.findViewById(R.id.dateText);
 
         scheduleViewModel = ViewModelProviders.of(this).get(ScheduleViewModel.class);
@@ -104,7 +107,11 @@ public class TodayMatchesFragment extends Fragment {
                 seperatorLine.setVisibility(View.GONE);
 
         }
+    }
 
-
+    private void loadAd(@NonNull View view) {
+        AdView mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }

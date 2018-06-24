@@ -173,7 +173,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         String appVersionCode = FirebaseConfig.getInstance().getConfig().getString(FirebaseConfig.KEY.KEY_VERSION_CODE);
         appVersionCode = TextUtils.isEmpty(appVersionCode) ? "0" : appVersionCode;
         int currAppVersion = Integer.parseInt(appVersionCode);
-        if (currAppVersion > BuildConfig.VERSION_CODE) {
+        if (currAppVersion != 0 && currAppVersion > BuildConfig.VERSION_CODE) {
             String updateMessage = FirebaseConfig.getInstance().getConfig().getString(FirebaseConfig.KEY.KEY_UPDATE_MESSAGE);
             updateMessage = TextUtils.isEmpty(updateMessage) ? "New exciting update available, update your app." : updateMessage;
             // Use the Builder class for convenient dialog construction

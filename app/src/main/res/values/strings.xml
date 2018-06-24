@@ -20,4 +20,6 @@
     <string name="label_today_matches">Today\'s Matches</string>
     <string name="lable_top_scorer">Top Scorer</string>
     <string name="dialog_txt">You\'ve voted for %s, Thanks for supporting your team</string>
+    <string name="ad_unit_id">ca-app-pub-1561527961813786/6054777271</string>
+    <string name="admob_app_id">ca-app-pub-1561527961813786~1213514133</string>
 </resources>

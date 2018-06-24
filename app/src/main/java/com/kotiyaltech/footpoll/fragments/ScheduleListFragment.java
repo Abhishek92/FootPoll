@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.database.ScheduleItem;
 import com.kotiyaltech.footpoll.util.Util;
@@ -64,6 +66,7 @@ public class ScheduleListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        loadAd(view);
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         LinearLayout scheduleContainer = view.findViewById(R.id.scheduleContainer);
         DateFormat utcFormat = new SimpleDateFormat("HH:mm");
@@ -124,5 +127,11 @@ public class ScheduleListFragment extends Fragment {
         }
 
         return groupedTeamMap;
+    }
+
+    private void loadAd(@NonNull View view) {
+        AdView mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }

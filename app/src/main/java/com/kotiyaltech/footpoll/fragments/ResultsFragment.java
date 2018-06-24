@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.adapter.ResultListAdapter;
 import com.kotiyaltech.footpoll.database.ResultItem;
@@ -49,6 +51,7 @@ public class ResultsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         resultsRecyclerView = view.findViewById(R.id.result_list_rv);
+        loadAd(view);
         final ProgressBar progressBar = view.findViewById(R.id.progressBar);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -63,6 +66,12 @@ public class ResultsFragment extends Fragment {
                     loadResults(results.getResults());
             }
         });
+    }
+
+    private void loadAd(@NonNull View view) {
+        AdView mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void loadResults(List<ResultItem> results) {

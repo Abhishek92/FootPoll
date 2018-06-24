@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.kotiyaltech.footpoll.R;
 import com.kotiyaltech.footpoll.adapter.TopScorerAdapter;
 import com.kotiyaltech.footpoll.database.TopScorer;
@@ -48,6 +50,7 @@ public class TopScorerFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         topScorerRecyclerView = view.findViewById(R.id.topScorrer_list_rv);
+        loadAd(view);
         final ProgressBar progressBar = view.findViewById(R.id.progressBar);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -62,6 +65,12 @@ public class TopScorerFragment extends Fragment {
                     loadTopScorer(topScorer.getTopScorer());
             }
         });
+    }
+
+    private void loadAd(@NonNull View view) {
+        AdView mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void loadTopScorer(List<TopScorerItem> results) {
